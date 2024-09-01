@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-// Define a Transaction schema and model
+//Here, I have defined a Transaction schema and model
 const transactionSchema = new mongoose.Schema({
     address: String,
     transactions: Array,
