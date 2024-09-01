@@ -1,5 +1,5 @@
 import express  from 'express'
-import { scheduleEthereumPriceJob } from './jobs/priceScheduler';
+import { scheduleEthereumPriceJob } from './jobs/priceScheduler.js';
 
 const app = express();
 
@@ -11,9 +11,9 @@ app.get("/", (req, res) => {
 // Schedule the Ethereum price job to run every 10 minutes
 scheduleEthereumPriceJob()
 
-import transactionRouter from "./routes/transactions.route"
-import priceRouter from "./routes/price.route"
-import expensesRoute from "./routes/userExpenses.route"
+import transactionRouter from "./routes/transactions.route.js"
+import priceRouter from "./routes/price.route.js"
+import expensesRoute from "./routes/userExpenses.route.js"
 
 //Task 1 assignment of KoinX
 app.use("/api/v1", transactionRouter);
@@ -23,4 +23,4 @@ app.use("/api/v1", priceRouter);
 app.use("/api/v1", expensesRoute)
 
 
-export {app};
+export default app;

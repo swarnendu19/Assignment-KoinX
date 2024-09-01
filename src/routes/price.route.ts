@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getCurrentEthPrice } from "../controller/price";
+import { getCurrentEthPrice } from "../controller/price.js";
 
 const router = Router();
 

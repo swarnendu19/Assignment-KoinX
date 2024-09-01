@@ -1,8 +1,8 @@
-import { Transaction } from "../models/transaction.mode";
-import fetchCryptoTransaction from "../services/transactions.services";
-import { ApiError } from "../utils/ApiError";
-import { ApiResponse } from "../utils/ApiResponse";
-import { asyncHandler } from "../utils/asyncHandler";
+import { Transaction } from "../models/transaction.mode.js";
+import fetchCryptoTransaction from "../services/transactions.services.js";
+import { ApiError } from "../utils/ApiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 //Task 1 of KoinX
 export const allTransaction  = asyncHandler(

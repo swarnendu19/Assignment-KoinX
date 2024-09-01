@@ -1,2 +1,2 @@
-export const DB_NAME = 'assignment-knox'
+export const DB_NAME = 'Assignment-Koinx'
  

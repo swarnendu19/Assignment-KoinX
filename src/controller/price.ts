@@ -1,7 +1,7 @@
-import { asyncHandler } from "../utils/asyncHandler";
-import { Price } from "../models/price.model";
-import { ApiError } from "../utils/ApiError";
-import { ApiResponse } from "../utils/ApiResponse";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { Price } from "../models/price.model.js";
+import { ApiError } from "../utils/ApiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
 
 export const getCurrentEthPrice = asyncHandler(
     async (req, res) => {

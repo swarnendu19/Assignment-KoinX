@@ -1,6 +1,6 @@
 import corn from 'node-cron'
-import { fetchEtherPrice } from '../services/price.services';
-import { Price } from '../models/price.model';
+import { fetchEtherPrice } from '../services/price.services.js';
+import { Price } from '../models/price.model.js';
 
 export const scheduleEthereumPriceJob=()=>{
     corn.schedule('*/10 * * * *', async()=>{
