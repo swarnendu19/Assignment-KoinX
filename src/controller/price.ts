@@ -6,12 +6,12 @@ import { ApiResponse } from "../utils/ApiResponse";
 export const getCurrentEthPrice = asyncHandler(
     async (req, res) => {
         try {
-            const latestPrice = await Price.findOne().sort({ createdAt: -1 });
-            if (!latestPrice) {
+            const currentPrice = await Price.findOne().sort({ createdAt: -1 });
+            if (!currentPrice) {
                 throw new ApiError(404, "Price data not found in Database");
             }
             return res.status(200).json(
-                new ApiResponse(200, { price: latestPrice.price }, `Current Ethereum price is : ₹${latestPrice.price}`)
+                new ApiResponse(200, { price: currentPrice.price }, `Current Ethereum price is : ₹${currentPrice.price}`)
             );
         } catch (error) {
             if (error instanceof ApiError) {
