@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es5",                    // Target ECMAScript version
+    "module": "commonjs",               // Module system (e.g., commonjs for Node.js)
+    "outDir": "./dist",                 // Output directory for compiled JavaScript
+    "strict": true,                     // Enable all strict type-checking options
+    "esModuleInterop": true,            // Enable compatibility with CommonJS
+    "skipLibCheck": true,               // Skip type checking of declaration files
+    "forceConsistentCasingInFileNames": true // Ensure consistent casing in imports
+  },
+  "include": ["src/**/*"]               // Include all TypeScript files in the src directory
+}
