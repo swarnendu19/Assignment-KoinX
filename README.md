@@ -1,24 +1,35 @@
-# Crypto Transactions and Ethereum Price API
+# Koinx Backend Intern Assignment : Crypto Transactions and Ethereum Price API
 
-This project is a Node.js application that provides APIs for fetching Ethereum transactions of a user, fetching Ethereum prices periodically, and calculating a user's total expenses. The data is fetched from external APIs like Etherscan and CoinGecko, and stored in a MongoDB database.
+This project is given by KoinX Backend Intern assignment and It is a Node.js application that provides APIs for fetching Ethereum transactions of a user, fetching Ethereum prices periodically, and calculating a user's total expenses. The data is fetched from external APIs like Etherscan and CoinGecko, and stored in a MongoDB database.
+
+## Public Api on AWS 
+```
+http://ec2-16-171-162-206.eu-north-1.compute.amazonaws.com:5000/
+```
+or 
+```
+http://16.171.162.206:5000/
+```
+### Test Api
+```
+Task 1 API = http://ec2-16-171-162-206.eu-north-1.compute.amazonaws.com:5000/api/v1/transactions/0xce94e5621a5f7068253c42558c147480f38b5e0d
+Task 2 API = http://ec2-16-171-162-206.eu-north-1.compute.amazonaws.com:5000/api/v1/price
+Task 3 API = http://ec2-16-171-162-206.eu-north-1.compute.amazonaws.com:5000/api/v1/user-expenses/0xce94e5621a5f7068253c42558c147480f38b5e0d
+
+```
+
 
 ## Table of Contents
 
-- [Project Description](#project-description)
-- [Prerequisites](#prerequisites)
+- [Tech Stack](#tech-stack)
 - [Setup](#setup)
 - [Tasks](#tasks)
   - [Task 1: Fetch Crypto Transactions](#task-1-fetch-crypto-transactions)
   - [Task 2: Fetch Ethereum Price Periodically](#task-2-fetch-ethereum-price-periodically)
   - [Task 3: Calculate User Expenses](#task-3-calculate-user-expenses)
-- [Contributing](#contributing)
-- [License](#license)
 
-## Project Description
-
-The Crypto Transactions and Ethereum Price API provides several endpoints for interacting with the Ethereum blockchain. It allows users to fetch their transaction history, get real-time Ethereum prices, and calculate total expenses based on their transaction data.
-
-## Prerequisites
+ 
+## Tech Stack
 
 To run this project, ensure you have the following installed:
 
@@ -26,14 +37,19 @@ To run this project, ensure you have the following installed:
 - [npm](https://www.npmjs.com/) (Node Package Manager)
 - [MongoDB](https://www.mongodb.com/) (local or cloud-based)
 - An API key from [Etherscan](https://etherscan.io/) to access their API
+### Optional Task added 
+- [Docker](https://www.docker.com/) for containerization
+- [Redis](https://redis.io/) for caching(It makes the API 90% fast)
+- [AWS](https://aws.amazon.com/) for deployment
+
 
 ## Setup
 
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/yourusername/crypto-api.git
-    cd crypto-api
+    git clone https://github.com/yourusername/Assignment-Koinx.git
+    cd Assignment-Koinx
     ```
 
 2. **Install dependencies:**
@@ -47,28 +63,41 @@ To run this project, ensure you have the following installed:
    Create a `.env` file in the root directory and add the following environment variables:
 
     ```bash
-    ETHERSCAN_API_KEY=your_etherscan_api_key
-    MONGODB_URI=your_mongodb_uri
+    MONGODB_URL = mongodb+srv://swarnendu19:Swarnendu2003@assignment-koinx.yerb5.mongodb.net/?retryWrites=true&w=majority&appName=Assignment-Koinx
+    ETHERSCAN_API_KEY = your api key
+    PORT = 5000
+    COINGECKO_API = https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=inr
+    REDIS_URI =redis://localhost:6379
+
     ```
-
-   - Replace `your_etherscan_api_key` with the API key obtained from Etherscan.
-   - Replace `your_mongodb_uri` with your MongoDB connection string.
-
+ 
 4. **Start the server:**
 
     ```bash
     npm start
     ```
 
-   The server will start running on `http://localhost:3000`.
+   The server will start running on `http://localhost:5000`.
+
+## Setup using Docker 
+
+  Pull the docker Image:
+  ```
+  docker pull swarnendu19/koinx
+  ```
+  Run the Image 
+  ```
+  docker run -d -p 5000:5000 swarnendu19/koinx
+  ```
+
 
 ## Tasks
 
-### Task 1: Fetch Crypto Transactions
+# Task 1: Fetch Crypto Transactions
 
 Develop an API to fetch the list of Ethereum transactions for a user based on their address.
 
-- **Endpoint:** `GET /api/transactions/:address`
+- **Endpoint:** `GET api/v1/transactions/:address`
 - **Parameters:**
   - `address` (string): The Ethereum address of the user.
 - **Response:**
@@ -77,7 +106,7 @@ Develop an API to fetch the list of Ethereum transactions for a user based on th
 #### Example Request
 
 ```http
-GET /api/transactions/0xce94e5621a5f7068253c42558c147480f38b5e0d
+GET /api/v1/transactions/0xce94e5621a5f7068253c42558c147480f38b5e0d
 
 
 {
@@ -104,6 +133,10 @@ GET /api/transactions/0xce94e5621a5f7068253c42558c147480f38b5e0d
 ## Overview
 
 This task involves building a system to periodically fetch the current price of Ethereum in INR and store it in a MongoDB database. The price data is fetched using the CoinGecko API every 10 minutes.
+
+## API Endpoint
+
+**Endpoint:** `GET api/v1/price`
 
 ## Implementation
 
@@ -142,7 +175,7 @@ Develop an API to calculate a user's total expenses based on their Ethereum tran
 
 ## API Endpoint
 
-**Endpoint:** `GET /api/expenses/:address`
+**Endpoint:** `GET api/v1/user-expenses/:address`
 
 **Parameters:**
 - `address` (string): The Ethereum address of the user whose expenses you want to calculate.
@@ -165,61 +198,5 @@ Where:
 - `gasPrice`: The price of gas in Wei.
 - `1e18`: A constant to convert from Wei to Ether.
 
-## Implementation
+` 
 
-### 1. Create the API Endpoint
-
-Create a route handler for the endpoint that calculates user expenses. This handler will:
-- Fetch the user's transactions from the database.
-- Calculate the total expenses based on the transaction data.
-- Fetch the current price of Ether from the database or an external API.
-- Return the calculated total expenses along with the current Ether price.
-
-```javascript
-// controllers/expense.controller.js
-import { Transaction } from "../models/transaction.model";
-import { Price } from "../models/price.model";
-import { ApiError } from "../utils/ApiError";
-import { ApiResponse } from "../utils/ApiResponse";
-import { asyncHandler } from "../utils/asyncHandler";
-
-export const getUserExpenses = asyncHandler(
-    async (req, res) => {
-        const { address } = req.params;
-
-        try {
-            // Fetch the transaction record for the given address
-            const transactionRecord = await Transaction.findOne({ address });
-            if (!transactionRecord) {
-                throw new ApiError(404, "Transaction not found");
-            }
-
-            // Calculate the total expenses
-            let totalExpenses = 0;
-            transactionRecord.transactions.forEach(t => {
-                const gasUsed = parseInt(t.gasUsed, 10);
-                const gasPrice = parseInt(t.gasPrice, 10);
-                totalExpenses += (gasUsed * gasPrice) / 1e18;
-            });
-
-            // Fetch the latest Ethereum price from the database
-            const currentPriceRecord = await Price.findOne({ currency: 'INR' }).sort({ timestamp: -1 });
-            if (!currentPriceRecord) {
-                throw new ApiError(404, "Ethereum price not found in database");
-            }
-
-            // Return the response
-            return res.status(200).json(
-                new ApiResponse(200, {
-                    totalExpenses,
-                    currentEtherPrice: currentPriceRecord.price,
-                },
-                `Total Expenses: ${totalExpenses}`)
-            );
-        } catch (error) {
-            console.error('Error fetching user expenses:', error);
-            return res.status(500).json(new ApiError(500, "An error occurred while calculating user expenses"));
-        }
-    }
-);
-```
