@@ -1,3 +1,4 @@
+import { redis, redisTTL } from "../app.js";
 import { Price } from "../models/price.model.js";
 import { Transaction } from "../models/transaction.mode.js";
 import { ApiError } from "../utils/ApiError.js";
@@ -9,6 +10,16 @@ export const getUserExpenses = asyncHandler(
     async(req, res)=>{
         try {
             const {address} = req.params;
+
+
+            const cacheExpenses = await redis.get(`expenses_${address}`)
+            if(cacheExpenses){
+                const parsedExpenses = JSON.parse(cacheExpenses);
+                // console.log(parsedExpenses);
+                return res.status(201).json(
+                    new ApiResponse(200, parsedExpenses, `Total Expenses (cached): ${parsedExpenses.totalExpenses}`)
+                );
+            }
             const transactionRecord = await Transaction.findOne({address});
             // console.log(transactionRecord);   
             if(!transactionRecord) {
@@ -26,6 +37,12 @@ export const getUserExpenses = asyncHandler(
             const currentPriceRecord = await Price.findOne({currency: 'INR' }).sort({ createdAt: -1 });
             if(!currentPriceRecord) throw new ApiError(404, "Ethereum current not found in Database");
             // console.log(currentPriceRecord.price);    
+
+            // Cache the total expenses and current Ether price
+            await redis.set(`expenses_${address}`, JSON.stringify({
+                totalExpenses,
+                currentEtherPrice: currentPriceRecord.price,
+              }), 'EX', redisTTL);
 
             return res.status(201).json(
                 new ApiResponse(200 ,{

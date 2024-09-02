@@ -1,7 +1,15 @@
 import express  from 'express'
 import { scheduleEthereumPriceJob } from './jobs/priceScheduler.js';
+import { connectRedis } from './utils/redis.js';
+
 
 const app = express();
+
+
+const redisURI = process.env.REDIS_URI || "";
+export const redisTTL = process.env.REDIS_TTL || 60 * 60 * 4;
+export const redis = connectRedis(redisURI);
+
 
 //Testing the api
 app.get("/", (req, res) => { 
