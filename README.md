@@ -33,13 +33,13 @@ Task 3 API = http://ec2-16-171-162-206.eu-north-1.compute.amazonaws.com:5000/api
 
 To run this project, ensure you have the following installed:
 
-- [Node.js](https://nodejs.org/) (v14.x or later)
+- [Node.js](https://nodejs.org/) (v18.x or later)
 - [npm](https://www.npmjs.com/) (Node Package Manager)
 - [MongoDB](https://www.mongodb.com/) (local or cloud-based)
 - An API key from [Etherscan](https://etherscan.io/) to access their API
 ### Optional Task added 
 - [Docker](https://www.docker.com/) for containerization
-- [Redis](https://redis.io/) for caching(It makes the API 90% fast)
+- [Redis](https://redis.io/) for caching to significantly improve API performance, making it up to 90% faster.
 - [AWS](https://aws.amazon.com/) for deployment
 
 
@@ -197,6 +197,11 @@ Where:
 - `gasUsed`: The amount of gas used in the transaction.
 - `gasPrice`: The price of gas in Wei.
 - `1e18`: A constant to convert from Wei to Ether.
+ 
+## Connect with me
 
-` 
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/swarnendu19)
+[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/swarnendu_dev)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/swarnendu19)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](dev.swarnendu.maity@gmail.com)
 
