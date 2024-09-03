@@ -4,7 +4,7 @@ import { Price } from '../models/price.model.js';
 import { redis, redisTTL } from '../app.js';
 
 export const scheduleEthereumPriceJob=()=>{
-    corn.schedule('*/1 * * * *', async()=>{
+    corn.schedule('*/10 * * * *', async()=>{
         console.log("Fething the Price of Ethereum....");
         try {
             const etherPrice = await fetchEtherPrice();
