@@ -10,8 +10,9 @@ or
 ```
 http://16.171.162.206:5000/
 ```
-(If these links are not working, it means I have stopped the EC2 AWS instance due to billing issues.)
-Please contact me for that on my [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/swarnendu19)
+
+*If these links are not working, it means I have stopped the EC2 AWS instance due to billing issues.*  
+Please contact me for that on my [LinkedIn](https://www.linkedin.com/in/swarnendu19)
 
 ### Test Api
 ```
@@ -20,6 +21,7 @@ Task 2 API = http://ec2-16-171-162-206.eu-north-1.compute.amazonaws.com:5000/api
 Task 3 API = http://ec2-16-171-162-206.eu-north-1.compute.amazonaws.com:5000/api/v1/user-expenses/0xce94e5621a5f7068253c42558c147480f38b5e0d
 
 ```
+
 
 
 ## Table of Contents
